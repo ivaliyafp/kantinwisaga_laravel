@@ -1,0 +1,48 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+}
+
+.add-item-link {
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+.item-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 auto;
+    width: 80%;
+}
+
+.item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.item:hover {
+    background-color: #f0f0f0;
+}
+.profile-image {
+    display: block;
+    margin-right: 10px auto;
+    width: 85px; 
+    border-radius: 80%; 
+}
+.welcome-container {
+    display:flex;
+    width: 100%;
+    padding: 10px;
+    border-radius: 15px;
+    background-color: #faebeb;
+}
