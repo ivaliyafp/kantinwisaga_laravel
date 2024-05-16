@@ -17,5 +17,6 @@ Route::get('/', function () {
     return redirect()->route('items.index');
 });
 
-route::resource('items', ItemController::class);
+Route::resource('items', ItemController::class);
 Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show');
+Route::resource('menu-items', MenuItemController::class);
