@@ -3,15 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\MenuItem;
+
 
 class MenuItemController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+        public function index()
     {
-        //
+        $menuItems = MenuItem::all()->groupBy('jenis_makanan');
+        return view('items/menu')->with('menuItems', $menuItems);
+        
     }
 
     /**
@@ -35,7 +39,7 @@ class MenuItemController extends Controller
      */
     public function show(string $id)
     {
-        //
+    
     }
 
     /**

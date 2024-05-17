@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\MenuItemController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,3 +21,6 @@ Route::get('/', function () {
 Route::resource('items', ItemController::class);
 Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show');
 Route::resource('menu-items', MenuItemController::class);
+Route::get('/menu', [MenuItemController::class, 'index'])->name('menu');
+Route::get('/Home', [MenuItemController::class, 'menu'])->name('Home');
+

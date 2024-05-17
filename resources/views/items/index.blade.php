@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kantin</title>
+    <title>@yield('title', 'Kantin Sekolah')</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -92,7 +92,7 @@
         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">menu</a>
+        <a class="nav-link" href="{{ route('menu') }}">menu</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">About</a>
