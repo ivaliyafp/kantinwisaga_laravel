@@ -5,17 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\MenuItem;
 
-
 class MenuItemController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the refmensource.
      */
-        public function index()
-    {
-        $menuItems = MenuItem::all()->groupBy('jenis_makanan');
-        return view('items/menu')->with('menuItems', $menuItems);
         
+
+    public function menu()
+    {
+        $menuItems = MenuItem::all();;
+        return view('menu', compact('menuItems'));
+    }
+
+    public function kembaliHome() {
+        return "Hi";
     }
 
     /**
@@ -23,7 +27,7 @@ class MenuItemController extends Controller
      */
     public function create()
     {
-        //
+        return view('$menuItems.create');
     }
 
     /**
@@ -31,7 +35,26 @@ class MenuItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_makanan' => 'required|string|max:255',
+            'jenis_makanan' => 'required|string|max:255',
+            'harga_makanan' => 'required|numeric',
+            'jumlah_makanan' => 'required|integer',
+            'stok' => 'required|integer',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $menuItems = new MenuItem($request->all());
+
+        if ($request->hasFile('gambar')) {
+            $imageName = time().'.'.$request->gambar->extension();
+            $request->gambar->move(public_path('images'), $imageName);
+            $menuItems->gambar = $imageName;
+        }
+
+        $menuItems->save();
+
+        return redirect()->route('menu.index')->with('success', 'Menu item created successfully.');
     }
 
     /**
@@ -47,7 +70,7 @@ class MenuItemController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('menuitems.edit', compact('menu'));
     }
 
     /**
@@ -55,7 +78,8 @@ class MenuItemController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $menuItems->update($request->all());
+        return redirect()->route('menuitems.index');
     }
 
     /**
@@ -63,6 +87,7 @@ class MenuItemController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $menu->delete();
+        return redirect()->route('menuitems.index');
     }
 }

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->decimal('harga_makanan', 10, 2);
             $table->integer('jumlah_makanan');
             $table->integer('stok');
+            $table->string('gambar')->nullabel();
             $table->timestamps();
         });
     }
