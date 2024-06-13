@@ -29,6 +29,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            color: white;
+            text-align: center;
         }
 
         .background-image::before {
@@ -45,38 +47,18 @@
         .background-image-content {
             position: relative;
             z-index: 2;
-            color: white;
-            text-align: center;
         }
 
         .menu-container {
             width: 80%;
             margin: 0 auto;
             padding: 20px;
-        }
-
-        .menu-item {
-            display: flex;
-            align-items: center;
-            border-bottom: 1px solid #ddd;
-            padding: 20px 0;
-        }
-
-        .menu-image {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            margin-right: 20px;
+            background-color: #fff;
             border-radius: 10px;
-        }
-
-        .menu-item h5 {
-            margin: 0 0 10px;
-            color: #007bff;
-        }
-
-        .menu-item p {
-            margin: 5px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: -100px;
+            z-index: 3;
+            position: relative;
         }
 
         .card-container {
@@ -99,11 +81,10 @@
         }
 
         .card img {
-            width: 270px;
-            height: 300px;
+            width: 100%;
+            height: 200px;
             object-fit: cover;
-            border-radius: 20px;
-            margin-bottom: 20px;
+            border-radius: 10px;
         }
 
         .card p {
@@ -212,44 +193,6 @@
     </div>
 </div>
 
-@extends('layouts.app')
-
-@section('content')
-<div class="container">
-    <h1>Daftar Menu</h1>
-    <a href="{{ route('menuitems.create') }}" class="btn btn-primary">Tambah Menu</a>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Nama</th>
-                <th>Deskripsi</th>
-                <th>Harga</th>
-                <th>Stok</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($menuitems as $menuitem)
-                <tr>
-                    <td>{{ $menuitem->name }}</td>
-                    <td>{{ $menuitem->description }}</td>
-                    <td>{{ $menuitem->price }}</td>
-                    <td>{{ $menuitem->stock }}</td>
-                    <td>
-                        <a href="{{ route('menuitems.edit', $menuitem) }}" class="btn btn-warning">Edit</a>
-                        <form action="{{ route('menuitems.destroy', $menuitem) }}" method="POST" style="display:inline-block;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Hapus</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-</div>
-@endsection
-
 <div class="menu-container">
     <h1 class="section-heading">Menu Restoran</h1>
     <div class="card-container">
@@ -275,4 +218,116 @@
             <img src="{{ asset('images/item/download (4).jpeg') }}" alt="Risol">
             <p>Risol</p>
             <p>Harga: Rp. 3000</p>
-            <button>Buy</
+            <button>Buy</button>
+        </div>
+        <div class="card" onclick="openModal('kue_sus')">
+            <img src="{{ asset('images/item/Yummy.jpeg') }}" alt="Kue Sus">
+            <p>Kue Sus</p>
+            <p>Harga: Rp. 2000</p>
+            <button>Buy</button>
+        </div>
+        <div class="card" onclick="openModal('semangka')">
+            <img src="{{ asset('images/item/download (7).jpeg') }}" alt="Semangka">
+            <p>Semangka</p>
+            <p>Harga: Rp. 1000</p>
+            <button>Buy</button>
+        </div>
+        <div class="card" onclick="openModal('jus_jambu')">
+            <img src="{{ asset('images/item/download (6).jpeg') }}" alt="Jus Jambu">
+            <p>Jus Jambu</p>
+            <p>Harga: Rp. 3000</p>
+            <button>Buy</button>
+        </div>
+           
+<div id="productModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div id="modalBody"></div>
+    </div>
+</div>
+
+<script>
+function openModal(product) {
+    console.log("Product clicked:", product);  // Debugging line
+    var modal = document.getElementById("productModal");
+    var modalBody = document.getElementById("modalBody");
+
+    var productDetails = {
+        bakso: {
+            nama_makanan: "Bakso Bakar",
+            jenis_makanan: "Lezat dengan daging sapi.",
+            harga_makanan: "Rp. 2500",
+            imgSrc: "{{ asset('images/item/bakso (1).jpeg') }}"
+        },
+        tahu: {
+            nama_makanan: "Dimsum",
+            jenis_makanan: "Fried tofu stuffed with vegetables.",
+            harga_makanan: "Rp. 2000",
+            imgSrc: "{{ asset('images/item/makanan (2).jpeg') }}"
+        },
+        sushi: {
+            nama_makanan: "Sushi",
+            jenis_makanan: "Crispy banana spring rolls.",
+            harga_makanan: "Rp. 3000",
+            imgSrc: "{{ asset('images/item/makanan (3).jpeg') }}"
+        },
+        risol: {
+            nama_makanan: "Risol",
+            jenis_makanan: "Japanese rice balls with filling.",
+            harga_makanan: "Rp. 3000",
+            imgSrc: "{{ asset('images/item/download (4).jpeg') }}"
+        },
+        kue_sus: {
+            nama_makanan: "Kue Sus",
+            jenis_makanan: "Delicious cream puffs.",
+            harga_makanan: "Rp. 2000",
+            imgSrc: "{{ asset('images/item/Yummy.jpeg') }}"
+        },
+        semangka: {
+            nama_makanan: "Semangka",
+            jenis_makanan: "Segar dan manis.",
+            harga_makanan: "Rp. 1000",
+            imgSrc: "{{ asset('images/item/download (7).jpeg') }}"
+        },
+        jus_jambu: {
+            nama_makanan: "Jus Jambu",
+            jenis_makanan: "Minuman jus jambu yang menyegarkan.",
+            harga_makanan: "Rp. 3000",
+            imgSrc: "{{ asset('images/item/download (6).jpeg') }}"
+        },
+        es_jeruk: {
+            nama_makanan: "Es Jeruk",
+            jenis_makanan: "Minuman es jeruk yang segar.",
+            harga_makanan: "Rp. 2000",
+            imgSrc: "{{ asset('images/item/es jeruk.jpeg') }}"
+        }
+    };
+
+    var details = productDetails[product];
+    if (details) {
+        modalBody.innerHTML = `
+            <h2>${details.nama_makanan}</h2>
+            <img src="${details.imgSrc}" alt="${details.nama_makanan}" style="width:100%; max-width:300px; margin-bottom: 20px;">
+            <p>${details.jenis_makanan}</p>
+            <p><strong>Harga: ${details.harga_makanan}</strong></p>
+        `;
+    } else {
+        modalBody.innerHTML = '<p>Product not found.</p>';
+    }
+
+    modal.style.display = "flex";
+}
+
+
+function closeModal() {
+    var modal = document.getElementById("productModal");
+    modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+    var modal = document.getElementById("productModal");
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
